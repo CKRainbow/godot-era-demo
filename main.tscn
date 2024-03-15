@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bghwui4e4tdhq"]
+
+[ext_resource type="Script" path="res://Main.cs" id="1_02dwl"]
+[ext_resource type="PackedScene" uid="uid://c0qwdbhx6q1a5" path="res://UI/mainMenu.tscn" id="1_akwsp"]
+[ext_resource type="PackedScene" uid="uid://dhxn2tkqepqgs" path="res://Interpreter/interpreter.tscn" id="2_bn2dx"]
+[ext_resource type="PackedScene" uid="uid://qfaxvxqu82wk" path="res://UI/displayMenu.tscn" id="3_53gci"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_02dwl")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" parent="." instance=ExtResource("1_akwsp")]
+unique_name_in_owner = true
+
+[node name="DisplayMenu" parent="." instance=ExtResource("3_53gci")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Interpreter" parent="." instance=ExtResource("2_bn2dx")]
+unique_name_in_owner = true
