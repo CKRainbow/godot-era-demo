@@ -30,8 +30,13 @@ public partial class Main : Node
     {
 
         _interpreter.Commands = CommandBuilder.Create()
-            .AddPrintLine("Hello, World!").AddPrintLine("This is a test.")
-            .AddPrintWait("Press any key to continue.\n").AddPrintLine("Goodbye!")
+            .AddPrintLine("Hello, World!")
+            .AddPrintLine("This is a test.")
+            .AddPrintWaitLine("Press any key to continue.")
+            .AddPrintLine("Goodbye!")
+            .AddPrintLine("This is the end of the test.")
+            .AddPrintWaitLine("Press any key to exit.")
+            .AddPrintLine("Goodbye!")
             .Build();
     }
 
