@@ -17,26 +17,30 @@ public class CommandBuilder
         _commands.Add(command);
         return this;
     }
-    public CommandBuilder AddPrint(string text, bool wait = false, bool line = false)
+    public CommandBuilder AddCommand(ICommand command)
+    {
+        _commands.Add(command);
+        return this;
+    }
+    public CommandBuilder AddPrint(string text, PrintType type = PrintType.None)
     {
         Add<Print>(print =>
         {
-            print.Text = text;
-            if (line)
-            {
-                print.Text += "\n";
-            }
-            print.Wait = wait;
+            print.SetPrint(text, type);
         });
         return this;
     }
     public CommandBuilder AddPrintLine(string text)
     {
-        return AddPrint(text, line: true);
+        return AddPrint(text, PrintType.Line);
     }
     public CommandBuilder AddPrintWait(string text)
     {
-        return AddPrint(text, true);
+        return AddPrint(text, PrintType.Wait);
+    }
+    public CommandBuilder AddPrintWaitLine(string text)
+    {
+        return AddPrint(text, PrintType.WaitLine);
     }
     public List<ICommand> Build()
     {
