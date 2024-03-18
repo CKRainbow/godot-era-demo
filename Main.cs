@@ -1,11 +1,12 @@
 using System;
 using System.Threading.Tasks;
+using EraLike.Command;
 using Godot;
 
 public partial class Main : Node
 {
     private DisplayMenu _displayMenu;
-    private MainMenu _mainMenu;
+    private MainMenu    _mainMenu;
     private Interpreter _interpreter;
 
     public override void _Ready()
@@ -22,29 +23,26 @@ public partial class Main : Node
         _mainMenu.Visible = false;
         _displayMenu.Visible = true;
 
-        await Test();
+        Test();
     }
 
-    private async Task Test()
+    private void Test()
     {
-        await Task.Run(() =>
-        {
-            _interpreter.Print("测试");
-            _interpreter.PrintL("测试");
-            _interpreter.Input();
-            _interpreter.PrintW("测试");
-            _interpreter.Print("测试");
-            _interpreter.PrintW("停止");
-        });
+
+        _interpreter.Commands = CommandBuilder.Create()
+            .AddPrintLine("Hello, World!").AddPrintLine("This is a test.")
+            .AddPrintWait("Press any key to continue.\n").AddPrintLine("Goodbye!")
+            .Build();
     }
 
-    public override void _Process(double delta) { }
-
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Process(double delta)
     {
-        if (@event is InputEventKey inputEventKey && inputEventKey.IsActionReleased("ui_accept"))
+        if (!_interpreter.CanExecute)
         {
-            _interpreter.Continue();
+            return;
         }
+        _interpreter.Execute();
     }
+
+
 }
